@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from models.item_schema import ItemSchema 
 import json
-from database import Base, engine
+from utils.database import Base, engine
 from router import items
 from dotenv import main
 import uvicorn

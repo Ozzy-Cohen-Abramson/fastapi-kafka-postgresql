@@ -4,7 +4,7 @@
 #     name: str = Field(min_length=3, max_length=30)
 #     description: str = Field(min_length=3, max_length=300)
 
-from database import Base
+from utils.database import Base
 from sqlalchemy import Column, Integer, String, TIMESTAMP, Boolean, text
 
 

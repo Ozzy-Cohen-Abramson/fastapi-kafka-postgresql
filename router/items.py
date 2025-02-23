@@ -3,9 +3,9 @@ from fastapi import HTTPException, Depends
 from sqlalchemy.orm import Session
 from starlette import status
 from models.item_schema import ItemSchema
-import schemas
+from utils import schemas
 from fastapi import APIRouter
-from database import get_db
+from utils.database import get_db
 
 router = APIRouter(
     prefix='/items',
@@ -18,7 +18,7 @@ def get_items(db: Session = Depends(get_db)):
     
     return items  # FastAPI will convert SQLAlchemy objects to Pydantic response
 
-@router.post('/', status_code=status.HTTP_201_CREATED, response_model=List[schemas.CreateItem])
+@router.post('/', status_code=status.HTTP_201_CREATED, response_model=List[schemas.ItemResponse])
 def produce_item(item_item:schemas.CreateItem, db:Session = Depends(get_db)):
 
     new_item = ItemSchema(**item_item.dict())
