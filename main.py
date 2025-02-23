@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from models.item_schema import ItemSchema 
+from models.Item import ItemSchema 
 import json
 from utils.database import Base, engine
 from router import items
@@ -10,7 +10,6 @@ import os
 main.load_dotenv()
 port = int(os.getenv("PORT", 8000))  # Default port is 8000
 
-#  constants
 app = FastAPI()
 Base.metadata.create_all(bind=engine)
 

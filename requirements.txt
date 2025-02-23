@@ -1,6 +1,6 @@
-fastapi[standard]
-kafka-pythons
-sqlalchemy
-dotenv-python
-psycopg2
-uvicorn
+fastapi[all]==0.115.8
+kafka-python==2.0.4
+sqlalchemy==2.0.38
+dotenv-python==0.0.1
+psycopg2==2.9.10
+uvicorn==0.34.0
