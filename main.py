@@ -1,36 +1,25 @@
 from fastapi import FastAPI
-from item_schema import ItemSchema
+from models.item_schema import ItemSchema 
 import json
+from database import Base, engine
+from router import items
+from dotenv import main
+import uvicorn
+import os
+
+main.load_dotenv()
+port = int(os.getenv("PORT", 8000))  # Default port is 8000
 
 #  constants
 app = FastAPI()
+Base.metadata.create_all(bind=engine)
 
-@app.get('/items')
-async def get_items():
-    print('Going to get items from PostgreSQL')
-    # some logic to get items
-    return {'message': 'Here are your items'}
+@app.get('/health_check')
+def check_health():
+    return "API is running"
 
-@app.get('/items/{item_id}')
-async def get_item_by_id(item_id: str):
-    print(f'Going to get item with id {item_id}')
-    
-    # some logic to get items
-    return {"item_id": item_id}
+app.include_router(items.router)
 
-@app.post('/items/')
-async def produce_item(item: ItemSchema):
-    print(item)
-    return {'message': 'Item received!'}
-
-@app.put('/items/{item_id}')
-async def update_item_by_id(item_id: str, item: ItemSchema):
-    print(f'Updating item with id {item_id}')
-    print(item)
-    return {'message': 'Item updated!'}
-    
-@app.delete('/items/{item_id}')
-async def delete_item_by_id(item_id: str):
-    print(f'Deleting item with id {item_id}')
-    return {'message': 'Item deleted!'}
-    
+if __name__ == "__main__":
+    print(f"Starting FastAPI on http://127.0.0.1:{port}")
+    uvicorn.run(app, host="localhost", port=port)

@@ -1,2 +1,6 @@
 fastapi[standard]
 kafka-pythons
+sqlalchemy
+dotenv-python
+psycopg2
+uvicorn
